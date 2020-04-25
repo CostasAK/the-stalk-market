@@ -23,7 +23,7 @@ function round_p(value, precision) {
 
 function predict_turnips(daisy_price, nook_prices, previous_pattern) {
   // The prices array is formatted like:
-  // [price, M-AM, M-PM, T-AM, T-PM, W-AM, W-PM, Th-AM, Th-PM, F-AM, F-PM, S-AM, S-PM, Su-AM, Su-PM]
+  // [price, price, M-AM, M-PM, T-AM, T-PM, W-AM, W-PM, Th-AM, Th-PM, F-AM, F-PM, S-AM, S-PM, Su-AM, Su-PM]
   var turnip_prices = [daisy_price, daisy_price, ...nook_prices];
   
   // Parse previous pattern
@@ -44,10 +44,6 @@ function predict_turnips(daisy_price, nook_prices, previous_pattern) {
     default:
       previous_pattern_int = -1;
   }
-  
-  // Generate hyperlink
-  //var hyperlink_prices = [daisy_price, ...nook_prices].join(".");
-  //var possible_patterns_hyperlink = "https://turnipprophet.io/index.html?first-time=false&pattern=" + previous_pattern_int + "&prices=" + hyperlink_prices + "&action=";
   
   // Parse the incoming price array for integers
   for (let i = 0; i < turnip_prices.length; i++) {
@@ -83,7 +79,6 @@ function predict_turnips(daisy_price, nook_prices, previous_pattern) {
   }
   
   // Generate the 'Possible patterns' strings
-  //price_prediction.push('HYPERLINK( "' + possible_patterns_hyperlink + '", "Possible patterns" )');
   price_prediction.push("Possible patterns");
   
   // Parse the possible_patterns array.
