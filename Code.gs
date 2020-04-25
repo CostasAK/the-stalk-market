@@ -97,6 +97,7 @@ function predict_turnips(daisy_price, nook_prices, previous_pattern) {
       if (isNaN(patt[1])) {
         possible_patterns_string += patt[0];
       } else {
+        // Convert probabilities to percentages rounded to one decimal place
         possible_patterns_string += patt[0] + " (" + round_p(patt[1]*100, 1) + "%)";
       }
     }
