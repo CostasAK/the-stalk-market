@@ -13,9 +13,10 @@ function Resettonewweek() {
   spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Tracker'), true);
   var j;
   var previous_pattern;
+  var current_pattern;
   for (let i = 3; i < number_of_rows; i = i+2) {
     j = i+1;
-    var current_pattern = spreadsheet.getRange('P'+j).activate().getValue();
+    current_pattern = spreadsheet.getRange('P'+j).activate().getValue();
     switch (current_pattern) {
       case "Fluctuating":
       case "Fluctuating (100%)":
