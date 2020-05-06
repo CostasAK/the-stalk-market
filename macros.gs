@@ -46,7 +46,7 @@ function resetToNewWeek () { // eslint-disable-line no-unused-vars
   }
 };
 
-function Addednewrow () {
+function addedNewRow () {
   var spreadsheet = SpreadsheetApp.getActive() // eslint-disable-line no-undef
   spreadsheet.setActiveSheet(spreadsheet.getSheetByName('Tracker'), true)
 
@@ -88,6 +88,6 @@ function addUntilFiveFree () { // eslint-disable-line no-unused-vars
     }
   }
   for (let i = freeRows; i < 5; i++) {
-    Addednewrow()
+    addedNewRow()
   }
 }
