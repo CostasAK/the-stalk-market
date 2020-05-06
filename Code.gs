@@ -1,3 +1,25 @@
+// A translation class, because we don't have i18 available in Google Sheets and only need English.
+class I18Next { // eslint-disable-line no-unused-vars
+  t (inString) {
+    switch (inString) {
+      case 'patterns.fluctuating':
+        return 'Fluctuating'
+      case 'patterns.large-spike':
+        return 'Large spike'
+      case 'patterns.decreasing':
+        return 'Decreasing'
+      case 'patterns.small-spike':
+        return 'Small spike'
+      case 'patterns.all':
+        return 'All patterns'
+      default:
+        return 'ERROR i18'
+    }
+  }
+}
+
+const i18next = new I18Next() // eslint-disable-line no-undef, no-unused-vars
+
 function findStr (array, target) {
   for (var i = 0; i < array.length; i++) {
     if (array[i][0] === target) {
@@ -18,6 +40,11 @@ function compareSecondColumn (a, b) {
 function roundPrecision (value, precision) {
   var multiplier = Math.pow(10, precision || 0)
   return Math.round(value * multiplier) / multiplier
+}
+
+function analyzePossibilities (inTurnipPrices, inPreviousPatternInt) { // eslint-disable-line no-unused-vars
+  const predictor = new Predictor(inTurnipPrices, false, inPreviousPatternInt) // eslint-disable-line no-undef
+  return predictor.analyze_possibilities()
 }
 
 function predictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-disable-line no-unused-vars
@@ -49,10 +76,14 @@ function predictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-di
     turnipPrices[i] = parseInt(turnipPrices[i])
   }
 
+  for (let i = turnipPrices.length; i < 14; i++) {
+    turnipPrices.push(NaN)
+  }
+
   // Obtain all possible patterns and probabilities. Obtain the min max values from the 'All patterns' pattern.
   var pricePrediction = []
   var possiblePatterns = []
-  for (const poss of analyze_possibilities(turnipPrices, false, previousPatternInt)) { // eslint-disable-line no-undef
+  for (const poss of analyzePossibilities(turnipPrices, previousPatternInt)) { // eslint-disable-line no-undef
     // Collect possible patterns and aggregate the probabilities.
     if (poss.pattern_description !== 'All patterns') {
       var patternIndex = findStr(possiblePatterns, poss.pattern_description)
@@ -103,4 +134,15 @@ function predictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-di
   pricePrediction.push(possiblePatternsString)
 
   return pricePrediction
+}
+
+function testAnalyzePossibilities () { // eslint-disable-line no-unused-vars
+  const predictor = new Predictor([103, 103, 91, 138, 161, 504, , 143, , , , , , ], false, 0) // eslint-disable-line no-undef, no-sparse-arrays, array-bracket-spacing
+  const prediction = predictor.analyze_possibilities()
+  return prediction
+}
+
+function testPredictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-disable-line no-unused-vars
+  const prediction = predictTurnips(103, [91, 138, 161], 'Fluctuating')
+  return prediction
 }
