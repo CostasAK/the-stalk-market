@@ -3,5 +3,12 @@
 		{
 			"path": "."
 		}
-	]
+	],
+	"settings": {
+		"standard.options": {
+			"ignore": [
+				"predictions.gs"
+			]
+		}
+	}
 }
