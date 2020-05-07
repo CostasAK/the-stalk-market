@@ -1,5 +1,5 @@
 // A translation class, because we don't have i18 available in Google Sheets and only need English.
-class I18Next { // eslint-disable-line no-unused-vars
+class I18Next {
   t (inString) {
     switch (inString) {
       case 'patterns.fluctuating':
@@ -18,7 +18,7 @@ class I18Next { // eslint-disable-line no-unused-vars
   }
 }
 
-const i18next = new I18Next() // eslint-disable-line no-undef, no-unused-vars
+const i18next = new I18Next() // eslint-disable-line no-unused-vars
 
 function findStr (array, target) {
   for (var i = 0; i < array.length; i++) {
@@ -42,7 +42,7 @@ function roundPrecision (value, precision) {
   return Math.round(value * multiplier) / multiplier
 }
 
-function analyzePossibilities (inTurnipPrices, inPreviousPatternInt) { // eslint-disable-line no-unused-vars
+function analyzePossibilities (inTurnipPrices, inPreviousPatternInt) {
   const predictor = new Predictor(inTurnipPrices, false, inPreviousPatternInt) // eslint-disable-line no-undef
   return predictor.analyze_possibilities()
 }
