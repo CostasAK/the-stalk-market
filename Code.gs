@@ -76,6 +76,7 @@ function predictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-di
     turnipPrices[i] = parseInt(turnipPrices[i])
   }
 
+  // NaN-pad length if needed
   for (let i = turnipPrices.length; i < 14; i++) {
     turnipPrices.push(NaN)
   }
@@ -86,13 +87,9 @@ function predictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-di
   for (const poss of analyzePossibilities(turnipPrices, previousPatternInt)) { // eslint-disable-line no-undef
     // Collect possible patterns and aggregate the probabilities.
     if (poss.pattern_description !== 'All patterns') {
-      var patternIndex = findStr(possiblePatterns, poss.pattern_description)
-      if (patternIndex === -1) {
-        possiblePatterns.push([poss.pattern_description, poss.probability])
-      } else {
-        possiblePatterns[patternIndex][1] += poss.probability
+      if (findStr(possiblePatterns, poss.pattern_description) === -1) {
+        possiblePatterns.push([poss.pattern_description, poss.category_total_probability])
       }
-
     // Obtain min max values from the 'All patterns' pattern.
     } else {
       for (const day of poss.prices.slice(2)) {
@@ -131,6 +128,8 @@ function predictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-di
       }
     }
   }
+  possiblePatternsString = possiblePatternsString.replace('(100%) ', '(≥ 99.5%) ')
+  possiblePatternsString = possiblePatternsString.replace('(0%)', '(< 0.05%)')
   pricePrediction.push(possiblePatternsString)
 
   return pricePrediction
