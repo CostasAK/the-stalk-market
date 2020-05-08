@@ -29,14 +29,6 @@ function findStr (array, target) {
   return -1
 }
 
-function compareSecondColumn (a, b) {
-  if (a[1] === b[1]) {
-    return 0
-  } else {
-    return (a[1] > b[1]) ? -1 : 1
-  }
-}
-
 function roundPrecision (value, precision) {
   var multiplier = Math.pow(10, precision || 0)
   return Math.round(value * multiplier) / multiplier
@@ -112,8 +104,6 @@ function predictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-di
   if (possiblePatterns.length === 0) {
     possiblePatternsString += 'Unknown'
   } else {
-    // The second column contains the propability values. The compare function makes it so they are descending in the resulting array.
-    possiblePatterns.sort(compareSecondColumn)
     for (const patt of possiblePatterns) {
       // Delimiter if not the first entry.
       if (possiblePatternsString.length !== 0) {
