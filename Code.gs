@@ -1,6 +1,8 @@
-function findStr (array, target) {
+const patternDescriptions = { 0: 'Fluctuating', 1: 'Large spike', 2: 'Decreasing', 3: 'Small spike', 4: 'All patterns' }
+
+function findInColumn (array, col, target) {
   for (var i = 0; i < array.length; i++) {
-    if (array[i][0] === target) {
+    if (array[i][col] === target) {
       return i
     }
   }
@@ -54,11 +56,9 @@ function predictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-di
   // Obtain all possible patterns and probabilities. Obtain the min max values from the 'All patterns' pattern.
   var pricePrediction = []
   var possiblePatterns = []
-  var patternDescriptions = { 0: 'Fluctuating', 1: 'Large spike', 2: 'Decreasing', 3: 'Small spike', 4: 'All patterns' }
   for (const poss of analyzePossibilities(turnipPrices, previousPatternInt)) { // eslint-disable-line no-undef
-    const patternDescription = patternDescriptions[poss.pattern_number]
     // Obtain min max values from the 'All patterns' pattern.
-    if (patternDescription === 'All patterns') {
+    if (poss.pattern_number === 4) {
       for (const day of poss.prices.slice(2)) {
         if (day.min > day.max) {
           pricePrediction.push('')
@@ -70,8 +70,8 @@ function predictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-di
       }
     // Collect possible patterns and aggregate the probabilities.
     } else {
-      if (findStr(possiblePatterns, patternDescription) === -1) {
-        possiblePatterns.push([patternDescription, poss.category_total_probability])
+      if (findInColumn(possiblePatterns, 0, poss.pattern_number) === -1) {
+        possiblePatterns.push([poss.pattern_number, poss.category_total_probability])
       }
     }
   }
@@ -91,10 +91,10 @@ function predictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-di
       }
       // Omit probabilities if they are not available
       if (isNaN(patt[1])) {
-        possiblePatternsString += patt[0]
+        possiblePatternsString += patternDescriptions[patt[0]]
       } else {
         // Convert probabilities to percentages rounded to one decimal place
-        possiblePatternsString += patt[0] + ' (' + roundPrecision(patt[1] * 100, 1) + '%)'
+        possiblePatternsString += patternDescriptions[patt[0]] + ' (' + roundPrecision(patt[1] * 100, 1) + '%)'
       }
     }
   }
