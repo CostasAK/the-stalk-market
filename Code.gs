@@ -1,25 +1,3 @@
-// A translation class, because we don't have i18 available in Google Sheets and only need English.
-class I18Next {
-  t (inString) {
-    switch (inString) {
-      case 'patterns.fluctuating':
-        return 'Fluctuating'
-      case 'patterns.large-spike':
-        return 'Large spike'
-      case 'patterns.decreasing':
-        return 'Decreasing'
-      case 'patterns.small-spike':
-        return 'Small spike'
-      case 'patterns.all':
-        return 'All patterns'
-      default:
-        return 'ERROR i18'
-    }
-  }
-}
-
-const i18next = new I18Next() // eslint-disable-line no-unused-vars
-
 function findStr (array, target) {
   for (var i = 0; i < array.length; i++) {
     if (array[i][0] === target) {
@@ -76,14 +54,11 @@ function predictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-di
   // Obtain all possible patterns and probabilities. Obtain the min max values from the 'All patterns' pattern.
   var pricePrediction = []
   var possiblePatterns = []
+  var patternDescriptions = { 0: 'Fluctuating', 1: 'Large spike', 2: 'Decreasing', 3: 'Small spike', 4: 'All patterns' }
   for (const poss of analyzePossibilities(turnipPrices, previousPatternInt)) { // eslint-disable-line no-undef
-    // Collect possible patterns and aggregate the probabilities.
-    if (poss.pattern_description !== 'All patterns') {
-      if (findStr(possiblePatterns, poss.pattern_description) === -1) {
-        possiblePatterns.push([poss.pattern_description, poss.category_total_probability])
-      }
+    const patternDescription = patternDescriptions[poss.pattern_number]
     // Obtain min max values from the 'All patterns' pattern.
-    } else {
+    if (patternDescription === 'All patterns') {
       for (const day of poss.prices.slice(2)) {
         if (day.min > day.max) {
           pricePrediction.push('')
@@ -92,6 +67,11 @@ function predictTurnips (daisyPrice, nookPrices, previousPattern) { // eslint-di
         } else {
           pricePrediction.push(day.min + '')
         }
+      }
+    // Collect possible patterns and aggregate the probabilities.
+    } else {
+      if (findStr(possiblePatterns, patternDescription) === -1) {
+        possiblePatterns.push([patternDescription, poss.category_total_probability])
       }
     }
   }
