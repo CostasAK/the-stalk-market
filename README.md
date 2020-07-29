@@ -1,6 +1,6 @@
 # The Stalk Market
 
-[![Sheet](https://img.shields.io/website?label=sheet&logo=Google-Sheets&up_color=0F9D58&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1zPntTGNOt1mlxwhsB9ap-WkyWZKC-7m48PObFRwKt-A%2Fedit%23gid%3D787780375)](https://docs.google.com/spreadsheets/d/1zPntTGNOt1mlxwhsB9ap-WkyWZKC-7m48PObFRwKt-A/edit#gid=787780375)
+[![Sheet](https://img.shields.io/website?label=sheet&logo=Google-Sheets&up_color=0F9D58&url=https%3A%2F%2Fdocs.google.com%2Fspreadsheets%2Fd%2F1zPntTGNOt1mlxwhsB9ap-WkyWZKC-7m48PObFRwKt-A%2Fedit%23gid%3D787780375)](https://tinyurl.com/yxmdw49x)
 [![License](https://img.shields.io/github/license/CostasAK/the-stalk-market)](https://github.com/CostasAK/the-stalk-market/blob/master/LICENSE)
 <!--[![Language](https://img.shields.io/github/languages/top/costasak/the-stalk-market)](https://github.com/CostasAK/the-stalk-market)
 [![Watchers](https://img.shields.io/github/watchers/costasak/the-stalk-market)](https://github.com/CostasAK/the-stalk-market)
